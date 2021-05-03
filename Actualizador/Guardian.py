@@ -4,7 +4,8 @@ import time
 
 from crontab import CronTab
 
-import lib.Control_Archivos2  as Ca
+#import lib.Control_Archivos2  as Ca
+import lib.Control_Archivos  as Ca
 import lib.Control_Automatico  as Cu
 
 #-----------------------------------
@@ -80,6 +81,51 @@ while 1:
     if Leer_Estado(20) == '0':
         print 'no hay actualizaciones pendientes'
         print 'revizar otras cosas.'
+
+        Formware = Leer_Archivo(29)
+        Firm = Formware.split('\n')
+        #print Firm[0].find("Firmware1_8")
+        if Firm[0].find("Firmware1_8") != -1:
+            print 'firmware de instalacion tiempo sin ejcutar el sh'
+            Tiem_de_activo = commands.getoutput('uptime -p')
+            if Tiem_de_activo.find(",") != -1:
+                Te = Tiem_de_activo.split(',')
+                print Te[0]
+                print Te[1]
+                if Te[0].find("hours") != -1:
+
+                    apache2 = commands.getoutput('which apache2')
+                    php = commands.getoutput('which php')
+                    mysql = commands.getoutput('which mysql')
+                    print apache2
+
+                    if len(apache2)>3 and len(php)>3 and len(mysql)>3:
+                        print 'Ya esta instalado todo'
+                    elif len(apache2) == 0 or len(php) == 0 or len(mysql) == 0:
+                        print 'NO hay nada Instalado reiniciar'
+                        commands.getoutput('sudo reboot')
+
+            else:
+                print Tiem_de_activo
+                Te = Tiem_de_activo.split(' ')
+                print 'separando que pasa'
+                print Te[0]
+                print Te[1]
+                print Te[2]
+                if int(Te[1]) >=15:
+                    print 'revisar y reiniciar proque no se instalo'
+                    apache2 = commands.getoutput('which apache23')
+                    php = commands.getoutput('which php')
+                    mysql = commands.getoutput('which mysql')
+                    print apache2
+
+                    if len(apache2)>3 and len(php)>3 and len(mysql)>3:
+                        print 'Ya esta instalado todo'
+                    elif len(apache2) == 0 or len(php) == 0 or len(mysql) == 0:
+                        print 'NO hay nada Instalado reiniciar'
+                        commands.getoutput('sudo reboot')
+
+
 
         res = commands.getoutput('if test -f /home/pi/Firmware/Web/Install/P.sh; then echo "OK"; else echo "NO"; fi')
         if res == 'OK':
