@@ -65,7 +65,7 @@
   fi
 
   echo "-----------------------------------"
-  echo "Permisos de carpeta ${DIRECTORIO}"
+  echo "Permisos de carpeta /var/www/html "
   echo "-----------------------------------"
   DIRECTORIO=/var/www/html
   #DIRECTORIO=/var/www/html23423

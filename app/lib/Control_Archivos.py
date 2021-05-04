@@ -70,6 +70,7 @@ N_A_Wifi                ='/etc/wpa_supplicant/wpa_supplicant.conf'
 N_A_IP_Static           ='/etc/dhcpcd.conf'
 N_A_Con_Web             ='/var/www/html/Administracion/include/Control_Web.txt'
 N_A_Procesos_web	    ='/home/pi/Firmware/db/Status/Procesos_web.txt'
+N_A_Status_Ins_web	    ='/home/pi/Firmware/Web/Install/Status_Install.txt'
 
 
 
@@ -191,6 +192,7 @@ def Get_archivo(a):
     global N_A_IP_Static
     global N_A_Con_Web
     global N_A_Procesos_web
+    global N_A_Status_Ins_web
 
 
     arch = ''
@@ -243,6 +245,7 @@ def Get_archivo(a):
     if a==44:	arch	=       N_A_IP_Static
     if a==45:	arch	=       N_A_Con_Web
     if a==46:	arch	=       N_A_Procesos_web
+    if a==47:	arch	=       N_A_Status_Ins_web
 
     return arch
 

@@ -101,6 +101,8 @@ while 1:
 
                     if len(apache2)>3 and len(php)>3 and len(mysql)>3:
                         print 'Ya esta instalado todo'
+                        Borrar(47)              #
+                        Escrivir_Estados('OK',47)   # Estado final de la instalacion
                     elif len(apache2) == 0 or len(php) == 0 or len(mysql) == 0:
                         print 'NO hay nada Instalado reiniciar'
                         commands.getoutput('sudo reboot')
@@ -114,13 +116,15 @@ while 1:
                 print Te[2]
                 if int(Te[1]) >=15:
                     print 'revisar y reiniciar proque no se instalo'
-                    apache2 = commands.getoutput('which apache23')
+                    apache2 = commands.getoutput('which apache2')
                     php = commands.getoutput('which php')
                     mysql = commands.getoutput('which mysql')
                     print apache2
 
                     if len(apache2)>3 and len(php)>3 and len(mysql)>3:
                         print 'Ya esta instalado todo'
+                        Borrar(47)              #
+                        Escrivir_Estados('OK',47)   # Estado final de la instalacion
                     elif len(apache2) == 0 or len(php) == 0 or len(mysql) == 0:
                         print 'NO hay nada Instalado reiniciar'
                         commands.getoutput('sudo reboot')
@@ -137,6 +141,8 @@ while 1:
 
             if len(apache2)>3 and len(php)>3 and len(mysql)>3:
                 print 'Ya esta instalado todo'
+                Borrar(47)              #
+                Escrivir_Estados('OK',47)   # Estado final de la instalacion
             elif len(apache2) == 0 and len(php) == 0 and len(mysql) == 0:
                 print 'NO hay nada Instalado'
 
@@ -149,6 +155,8 @@ while 1:
                 res = commands.getoutput('stat -c "%a" /home/pi/Firmware/Web/Install/P.sh')
                 if res == "755":
                     print 'ejecutar sh';
+                    Borrar(47)              #
+                    Escrivir_Estados('INS',47)   # Estado final de la instalacion
                     res = commands.getoutput('/home/pi/Firmware/Web/Install/P.sh')
                     print res
 

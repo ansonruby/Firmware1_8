@@ -205,6 +205,7 @@ def Resolver_Comando_Web():
     global Comando_Antes
 
     Comando = Leer_Archivo(45)
+    #print Comando
 
     if Comando_Antes != Comando :
         #print Comando

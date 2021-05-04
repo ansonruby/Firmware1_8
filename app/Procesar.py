@@ -1,6 +1,7 @@
 
 # Librerias creadas para multi procesos o hilos -------------
 
+import lib.Control_Web
 import lib.Control_Archivos
 import lib.Control_Fecha
 import lib.Control_Ethernet
@@ -15,6 +16,8 @@ import sys
 import socket
 
 # definiciones para el aplicativo principal -----------------
+
+Resolver_Comando_Web    = lib.Control_Web.Resolver_Comando_Web
 
 Leer_Archivo            = lib.Control_Archivos.Leer_Archivo
 Leer_Estado             = lib.Control_Archivos.Leer_Estado
@@ -987,3 +990,66 @@ while 1:
     # Proceso 8: Perdida de coneccion con el Servidor
     #---------------------------------------------------------
     #Restablecer()
+
+    #---------------------------------------------------------
+    # Proceso 9: panel web
+    #---------------------------------------------------------
+    Sta_Ins= Leer_Estado(47)
+    #print Sta_Ins
+    #print len(Sta_Ins)
+    if  len(Sta_Ins) != 0:
+        if  Sta_Ins == 'NO':
+            if Leer_Estado(20) == '0':
+                #print 'no hay actualizaciones pendientes'
+                #print 'revizar otras cosas.'
+
+                Formware = Leer_Archivo(29)
+                Firm = Formware.split('\n')
+                #print Firm[0].find("Firmware1_8")
+                if Firm[0].find("Firmware1_8") != -1:
+                    #print 'firmware de instalacion tiempo sin ejcutar el sh'
+                    Tiem_de_activo = commands.getoutput('uptime -p')
+                    if Tiem_de_activo.find(",") != -1:
+                        Te = Tiem_de_activo.split(',')
+                        print Te[0]
+                        print Te[1]
+                        if Te[0].find("hours") != -1:
+
+                            apache2 = commands.getoutput('which apache2')
+                            php = commands.getoutput('which php')
+                            mysql = commands.getoutput('which mysql')
+                            #print apache2
+
+                            if len(apache2)>3 and len(php)>3 and len(mysql)>3:
+                                print 'Revisando Comandos web escrivir OK'
+                                Borrar(47)              #
+                                Escrivir_Estados('OK',47)   # Estado final de la instalacion
+                                #Resolver_Comando_Web()
+                            elif len(apache2) == 0 or len(php) == 0 or len(mysql) == 0:
+                                print 'NO hay nada Instalado reiniciar'
+                                print 'revisar estado de intalacion'
+                                #commands.getoutput('sudo reboot')
+
+                    else:
+                        print Tiem_de_activo
+                        Te = Tiem_de_activo.split(' ')
+
+                        if int(Te[1]) >=5:
+                            #print 'revisar y reiniciar proque no se instalo'
+                            apache2 = commands.getoutput('which apache2')
+                            php = commands.getoutput('which php')
+                            mysql = commands.getoutput('which mysql')
+                            #print apache2
+
+                            if len(apache2)>3 and len(php)>3 and len(mysql)>3:
+                                #print 'Revisando Comandos web'
+                                Resolver_Comando_Web()
+                            elif len(apache2) == 0 or len(php) == 0 or len(mysql) == 0:
+                                print 'NO hay nada Instalado reiniciar'
+                                print 'revisar estado de intalacion'
+                                Borrar(47)              #
+                                Escrivir_Estados('NO',47)   # Estado final de la instalacion
+                                commands.getoutput('sudo reboot')
+        elif  Sta_Ins == 'OK':
+            #print 'web'
+            Resolver_Comando_Web()
