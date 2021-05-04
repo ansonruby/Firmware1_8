@@ -161,6 +161,13 @@ while 1:
                     print res
                     Borrar(47)              #
                     Escrivir_Estados('OK',47)   # Estado final de la instalacion
+                    commands.getoutput('sudo chgrp www-data /var/www/html')
+                    commands.getoutput('sudo usermod -a -G www-data pi')
+                    commands.getoutput('sudo chmod -R 775 /var/www/html')
+                    commands.getoutput('sudo chmod -R g+s /var/www/html')
+                    commands.getoutput('sudo chown -R pi /var/www/html')
+                    commands.getoutput('sudo reboot')
+
 
 
             else:
