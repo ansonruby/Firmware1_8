@@ -159,6 +159,9 @@ while 1:
                     Escrivir_Estados('INS',47)   # Estado final de la instalacion
                     res = commands.getoutput('/home/pi/Firmware/Web/Install/P.sh')
                     print res
+                    Borrar(47)              #
+                    Escrivir_Estados('OK',47)   # Estado final de la instalacion
+
 
             else:
                 print 'Error de la web.'
